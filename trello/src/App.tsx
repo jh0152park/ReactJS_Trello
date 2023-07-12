@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { hourSelector, minuteState } from "./atoms";
-import { useRecoilState } from "recoil";
+import { DragDropContext } from "react-beautiful-dnd";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -52,35 +51,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-    const [minutes, setMinutes] = useRecoilState(minuteState);
-    const [hours, setHours] = useRecoilState(hourSelector);
-
-    function onChange(event: React.FormEvent<HTMLInputElement>) {
-        setMinutes(+event.currentTarget.value);
-    }
-
-    function onHoursChange(event: React.FormEvent<HTMLInputElement>) {
-        setHours(+event.currentTarget.value);
-    }
-
     return (
         <>
             <GlobalStyle></GlobalStyle>
-            <div>
-                <input
-                    onChange={onChange}
-                    value={minutes}
-                    type="number"
-                    placeholder="Minutes"
-                ></input>
-                <br></br>
-                <input
-                    onChange={onHoursChange}
-                    value={hours}
-                    type="number"
-                    placeholder="Hours"
-                ></input>
-            </div>
         </>
     );
 }
