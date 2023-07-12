@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import { hourState, minuteState } from "./atoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { hourSelector, minuteState } from "./atoms";
+import { useRecoilState } from "recoil";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -53,10 +53,14 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
     const [minutes, setMinutes] = useRecoilState(minuteState);
-    const hour = useRecoilValue(hourState);
+    const [hours, setHours] = useRecoilState(hourSelector);
 
     function onChange(event: React.FormEvent<HTMLInputElement>) {
         setMinutes(+event.currentTarget.value);
+    }
+
+    function onHoursChange(event: React.FormEvent<HTMLInputElement>) {
+        setHours(+event.currentTarget.value);
     }
 
     return (
@@ -70,7 +74,12 @@ function App() {
                     placeholder="Minutes"
                 ></input>
                 <br></br>
-                <input value={hour} type="number" placeholder="Hours"></input>
+                <input
+                    onChange={onHoursChange}
+                    value={hours}
+                    type="number"
+                    placeholder="Hours"
+                ></input>
             </div>
         </>
     );
