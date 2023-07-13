@@ -3,6 +3,16 @@ import { Droppable } from "react-beautiful-dnd";
 import { DraggableCard } from "./Card";
 import { styled } from "styled-components";
 
+interface IBoardProps {
+    actionItems: string[];
+    boardId: string;
+}
+
+interface IAreaProps {
+    isDraggingOver: boolean;
+    isDraggingFromThis: boolean;
+}
+
 const Container = styled.div`
     background-color: ${(props) => props.theme.boardColor};
     padding-top: 10px;
@@ -22,18 +32,31 @@ const Title = styled.h2`
     font-size: 18px;
 `;
 
-interface IBoardProps {
-    actionItems: string[];
-    boardId: string;
-}
+const Area = styled.div<IAreaProps>`
+    background-color: ${(props) =>
+        props.isDraggingOver
+            ? "pink"
+            : props.isDraggingFromThis
+            ? "red"
+            : "green"};
+    flex-grow: 1;
+    transition: background-color 0.3s ease-in-out;
+`;
 
 function Board({ boardId, actionItems }: IBoardProps) {
     return (
         <Container>
             <Title>{boardId}</Title>
             <Droppable droppableId={boardId}>
-                {(magic) => (
-                    <div ref={magic.innerRef} {...magic.droppableProps}>
+                {(magic, snapshot) => (
+                    <Area
+                        isDraggingOver={snapshot.isDraggingOver}
+                        isDraggingFromThis={Boolean(
+                            snapshot.draggingFromThisWith
+                        )}
+                        ref={magic.innerRef}
+                        {...magic.droppableProps}
+                    >
                         {actionItems.map((todo, index) => (
                             <DraggableCard
                                 key={todo}
@@ -42,7 +65,7 @@ function Board({ boardId, actionItems }: IBoardProps) {
                             ></DraggableCard>
                         ))}
                         {magic.placeholder}
-                    </div>
+                    </Area>
                 )}
             </Droppable>
         </Container>
