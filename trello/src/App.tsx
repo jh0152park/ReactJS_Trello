@@ -7,6 +7,7 @@ import {
 } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import { todoState } from "./atoms";
+import { DraggableCard } from "./components/DragabbleCard";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -81,13 +82,6 @@ const Board = styled.div`
     min-height: 200px;
 `;
 
-const Card = styled.div`
-    background-color: ${(props) => props.theme.cardColor};
-    padding: 10px 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-`;
-
 // const todoList = ["1", "2", "3", "4", "5"];
 
 function App() {
@@ -115,21 +109,11 @@ function App() {
                                     {...magic.droppableProps}
                                 >
                                     {todoList.map((todo, index) => (
-                                        <Draggable
-                                            draggableId={todo}
-                                            index={index}
+                                        <DraggableCard
                                             key={todo}
-                                        >
-                                            {(magic) => (
-                                                <Card
-                                                    ref={magic.innerRef}
-                                                    {...magic.draggableProps}
-                                                    {...magic.dragHandleProps}
-                                                >
-                                                    {todo}
-                                                </Card>
-                                            )}
-                                        </Draggable>
+                                            index={index}
+                                            todo={todo}
+                                        ></DraggableCard>
                                     ))}
                                     {magic.placeholder}
                                 </Board>
