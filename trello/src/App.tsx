@@ -56,8 +56,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
     display: flex;
-    max-width: 680px;
-    width: 100%;
+    width: 100vw;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
@@ -65,9 +64,10 @@ const Container = styled.div`
 `;
 
 const Boards = styled.div`
-    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     width: 100%;
-    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 `;
 
@@ -87,6 +87,18 @@ function App() {
             setActionItemList({
                 ...actionItem,
                 [source.droppableId]: copyList,
+            });
+        } else {
+            // different board movement
+            const copyFromList = [...actionItem[source.droppableId]];
+            const copyToList = [...actionItem[destination.droppableId]];
+
+            copyFromList.splice(source.index, 1);
+            copyToList.splice(destination?.index, 0, draggableId);
+            setActionItemList({
+                ...actionItem,
+                [source.droppableId]: copyFromList,
+                [destination.droppableId]: copyToList,
             });
         }
     }
