@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -51,9 +51,27 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+    function onDragEnd() {}
+
     return (
         <>
             <GlobalStyle></GlobalStyle>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div>
+                    <Droppable droppableId="one">
+                        {() => (
+                            <ul>
+                                <Draggable draggableId="first" index={0}>
+                                    {() => <li>Hello</li>}
+                                </Draggable>
+                                <Draggable draggableId="Second" index={1}>
+                                    {() => <li>World</li>}
+                                </Draggable>
+                            </ul>
+                        )}
+                    </Droppable>
+                </div>
+            </DragDropContext>
         </>
     );
 }
