@@ -93,13 +93,13 @@ const Card = styled.div`
 function App() {
     const [todoList, setTodoList] = useRecoilState(todoState);
 
-    function onDragEnd({ destination, source }: DropResult) {
-        const sort = todoList.map((item) => item);
+    function onDragEnd({ draggableId, destination, source }: DropResult) {
+        if (!destination) return;
 
-        // const fromIndex = source?.index
-        // const fromValue = sort[fromIndex]
-        // const toIndex = destination?.index
-        // const toValue = sort[toIndex?]
+        const copyList = [...todoList];
+        copyList.splice(source.index, 1);
+        copyList.splice(destination?.index, 0, draggableId);
+        setTodoList(copyList);
     }
 
     return (
@@ -118,7 +118,7 @@ function App() {
                                         <Draggable
                                             draggableId={todo}
                                             index={index}
-                                            key={index}
+                                            key={todo}
                                         >
                                             {(magic) => (
                                                 <Card
