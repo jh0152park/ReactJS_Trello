@@ -11,6 +11,13 @@ const Container = styled.div`
     min-height: 200px;
 `;
 
+const Title = styled.h2`
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 18px;
+`;
+
 interface IBoardProps {
     actionItems: string[];
     boardId: string;
@@ -18,20 +25,23 @@ interface IBoardProps {
 
 function Board({ boardId, actionItems }: IBoardProps) {
     return (
-        <Droppable droppableId={boardId}>
-            {(magic) => (
-                <Container ref={magic.innerRef} {...magic.droppableProps}>
-                    {actionItems.map((todo, index) => (
-                        <DraggableCard
-                            key={todo}
-                            index={index}
-                            todo={todo}
-                        ></DraggableCard>
-                    ))}
-                    {magic.placeholder}
-                </Container>
-            )}
-        </Droppable>
+        <Container>
+            <Title>{boardId}</Title>
+            <Droppable droppableId={boardId}>
+                {(magic) => (
+                    <div ref={magic.innerRef} {...magic.droppableProps}>
+                        {actionItems.map((todo, index) => (
+                            <DraggableCard
+                                key={todo}
+                                index={index}
+                                todo={todo}
+                            ></DraggableCard>
+                        ))}
+                        {magic.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </Container>
     );
 }
 
