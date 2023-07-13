@@ -7,8 +7,8 @@ interface IActionItemState {
 export const actionItemState = atom<IActionItemState>({
     key: "todo",
     default: {
-        todo: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-        doing: [],
-        done: [],
+        Todo: ["1", "2", "3"],
+        Doing: ["4", "5", "6", "7"],
+        Done: ["8", "9", "10"],
     },
 });

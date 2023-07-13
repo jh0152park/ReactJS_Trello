@@ -72,19 +72,23 @@ const Boards = styled.div`
 `;
 
 function App() {
-    const [
-        // { todo: todoList, doing: doingList, done: doneList },
-        actionItem,
-        setActionItemList,
-    ] = useRecoilState(actionItemState);
+    const [actionItem, setActionItemList] = useRecoilState(actionItemState);
 
-    function onDragEnd({ draggableId, destination, source }: DropResult) {
+    function onDragEnd(info: DropResult) {
+        const { source, destination, draggableId } = info;
         if (!destination) return;
 
-        // const copyList = [...todoList];
-        // copyList.splice(source.index, 1);
-        // copyList.splice(destination?.index, 0, draggableId);
-        // setActionItemList({ todo: copyList, doing: doingList, done: doneList });
+        if (source.droppableId === destination.droppableId) {
+            // same board movement
+            const copyList = [...actionItem[source.droppableId]];
+            copyList.splice(source.index, 1);
+            copyList.splice(destination?.index, 0, draggableId);
+
+            setActionItemList({
+                ...actionItem,
+                [source.droppableId]: copyList,
+            });
+        }
     }
 
     return (
