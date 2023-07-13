@@ -1,13 +1,9 @@
 import styled, { createGlobalStyle } from "styled-components";
-import {
-    DragDropContext,
-    Draggable,
-    DropResult,
-    Droppable,
-} from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import { todoState } from "./atoms";
-import { DraggableCard } from "./components/DragabbleCard";
+import { actionItemState } from "./atoms";
+
+import Board from "./components/Board";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -60,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
     display: flex;
-    max-width: 480px;
+    max-width: 680px;
     width: 100%;
     margin: 0 auto;
     justify-content: center;
@@ -71,29 +67,24 @@ const Container = styled.div`
 const Boards = styled.div`
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 `;
-
-const Board = styled.div`
-    background-color: ${(props) => props.theme.boardColor};
-    padding-top: 30px;
-    padding: 20px 10px;
-    border-radius: 5px;
-    min-height: 200px;
-`;
-
-// const todoList = ["1", "2", "3", "4", "5"];
 
 function App() {
-    const [todoList, setTodoList] = useRecoilState(todoState);
+    const [
+        // { todo: todoList, doing: doingList, done: doneList },
+        actionItem,
+        setActionItemList,
+    ] = useRecoilState(actionItemState);
 
     function onDragEnd({ draggableId, destination, source }: DropResult) {
         if (!destination) return;
 
-        const copyList = [...todoList];
-        copyList.splice(source.index, 1);
-        copyList.splice(destination?.index, 0, draggableId);
-        setTodoList(copyList);
+        // const copyList = [...todoList];
+        // copyList.splice(source.index, 1);
+        // copyList.splice(destination?.index, 0, draggableId);
+        // setActionItemList({ todo: copyList, doing: doingList, done: doneList });
     }
 
     return (
@@ -102,23 +93,16 @@ function App() {
             <DragDropContext onDragEnd={onDragEnd}>
                 <Container>
                     <Boards>
-                        <Droppable droppableId="one">
-                            {(magic) => (
-                                <Board
-                                    ref={magic.innerRef}
-                                    {...magic.droppableProps}
-                                >
-                                    {todoList.map((todo, index) => (
-                                        <DraggableCard
-                                            key={todo}
-                                            index={index}
-                                            todo={todo}
-                                        ></DraggableCard>
-                                    ))}
-                                    {magic.placeholder}
-                                </Board>
-                            )}
-                        </Droppable>
+                        {/* <Board boardId="todo" actionItems={todoList}></Board>
+                        <Board boardId="doing" actionItems={doingList}></Board>
+                        <Board boardId="done" actionItems={doneList}></Board> */}
+                        {Object.keys(actionItem).map((action) => (
+                            <Board
+                                boardId={action}
+                                key={action}
+                                actionItems={actionItem[action]}
+                            />
+                        ))}
                     </Boards>
                 </Container>
             </DragDropContext>
