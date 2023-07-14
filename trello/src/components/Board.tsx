@@ -3,7 +3,8 @@ import { Droppable } from "react-beautiful-dnd";
 import { DraggableCard } from "./Card";
 import { styled } from "styled-components";
 import { useForm } from "react-hook-form";
-import { ITodo } from "../atoms";
+import { ITodo, actionItemState } from "../atoms";
+import { useSetRecoilState } from "recoil";
 
 interface IBoardProps {
     actionItems: ITodo[];
@@ -58,8 +59,20 @@ const Form = styled.form`
 
 function Board({ boardId, actionItems }: IBoardProps) {
     const { register, setValue, handleSubmit } = useForm<IForm>();
+    const setActionItem = useSetRecoilState(actionItemState);
 
     function onValid({ todo }: IForm) {
+        const newItem = {
+            id: Date.now(),
+            text: todo,
+        };
+
+        setActionItem((prev) => {
+            return {
+                ...prev,
+                [boardId]: [...prev[boardId], newItem],
+            };
+        });
         setValue("todo", "");
     }
 
