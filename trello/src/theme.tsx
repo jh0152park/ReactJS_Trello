@@ -7,9 +7,16 @@ interface Thema {
     fontColor?: string;
 }
 
-export const defaultTheme: Thema = {
+export const lightMode: Thema = {
     backgroundColor: "#54a0ff",
     boardColor: "#c8d6e5",
     cardColor: "white",
     fontColor: "#2d3436",
+};
+
+export const darkMode: Thema = {
+    backgroundColor: "#222f3e",
+    boardColor: "#576574",
+    cardColor: "white",
+    fontColor: "whitesmoke",
 };
