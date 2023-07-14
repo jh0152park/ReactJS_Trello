@@ -16,7 +16,6 @@ interface IAreaProps {
 const Container = styled.div`
     background-color: ${(props) => props.theme.boardColor};
     padding-top: 10px;
-    padding: 20px 10px;
     border-radius: 5px;
     min-height: 200px;
     width: 300px;
@@ -35,12 +34,13 @@ const Title = styled.h2`
 const Area = styled.div<IAreaProps>`
     background-color: ${(props) =>
         props.isDraggingOver
-            ? "pink"
+            ? "rgb(128, 202, 209)"
             : props.isDraggingFromThis
-            ? "red"
-            : "green"};
+            ? "#dfe6e9"
+            : "transparent"};
     flex-grow: 1;
     transition: background-color 0.3s ease-in-out;
+    padding: 20px;
 `;
 
 function Board({ boardId, actionItems }: IBoardProps) {
