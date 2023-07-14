@@ -1,11 +1,12 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { useRecoilState } from "recoil";
-import { actionItemState } from "./atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { ThemaState, actionItemState } from "./atoms";
 
 import Board from "./components/Board";
-import Thema from "./components/Thema";
-import Create from "./components/Create";
+import Thema from "./components/ThemaButton";
+import Create from "./components/CreateButton";
+import { darkMode, lightMode } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -88,6 +89,8 @@ const Options = styled.div`
 
 function App() {
     const [actionItem, setActionItemList] = useRecoilState(actionItemState);
+    const currentThema = useRecoilValue(ThemaState);
+    const themaMode = currentThema ? lightMode : darkMode;
 
     function onDragEnd(info: DropResult) {
         const { source, destination } = info;
@@ -123,25 +126,27 @@ function App() {
 
     return (
         <>
-            <GlobalStyle></GlobalStyle>
-            <DragDropContext onDragEnd={onDragEnd}>
-                <Container>
-                    <Boards>
-                        {Object.keys(actionItem).map((action) => (
-                            <Board
-                                boardId={action}
-                                key={action}
-                                actionItems={actionItem[action]}
-                            />
-                        ))}
-                    </Boards>
+            <ThemeProvider theme={themaMode}>
+                <GlobalStyle></GlobalStyle>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Container>
+                        <Boards>
+                            {Object.keys(actionItem).map((action) => (
+                                <Board
+                                    boardId={action}
+                                    key={action}
+                                    actionItems={actionItem[action]}
+                                />
+                            ))}
+                        </Boards>
 
-                    <Options>
-                        <Thema></Thema>
-                        <Create></Create>
-                    </Options>
-                </Container>
-            </DragDropContext>
+                        <Options>
+                            <Thema></Thema>
+                            <Create></Create>
+                        </Options>
+                    </Container>
+                </DragDropContext>
+            </ThemeProvider>
         </>
     );
 }
