@@ -56,11 +56,12 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
     display: flex;
-    width: 100vw;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
+    width: 100vw;
     height: 100vh;
+    position: relative;
 `;
 
 const Boards = styled.div`
@@ -69,6 +70,18 @@ const Boards = styled.div`
     align-items: flex-start;
     width: 100%;
     gap: 10px;
+`;
+
+const Options = styled.div`
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
 `;
 
 function App() {
@@ -112,9 +125,6 @@ function App() {
             <DragDropContext onDragEnd={onDragEnd}>
                 <Container>
                     <Boards>
-                        {/* <Board boardId="todo" actionItems={todoList}></Board>
-                        <Board boardId="doing" actionItems={doingList}></Board>
-                        <Board boardId="done" actionItems={doneList}></Board> */}
                         {Object.keys(actionItem).map((action) => (
                             <Board
                                 boardId={action}
@@ -123,6 +133,8 @@ function App() {
                             />
                         ))}
                     </Boards>
+
+                    <Options></Options>
                 </Container>
             </DragDropContext>
         </>
