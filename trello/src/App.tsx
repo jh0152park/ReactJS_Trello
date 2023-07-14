@@ -75,14 +75,16 @@ function App() {
     const [actionItem, setActionItemList] = useRecoilState(actionItemState);
 
     function onDragEnd(info: DropResult) {
-        const { source, destination, draggableId } = info;
+        const { source, destination } = info;
         if (!destination) return;
 
         if (source.droppableId === destination.droppableId) {
             // same board movement
             const copyList = [...actionItem[source.droppableId]];
+            const taskObj = copyList[source.index];
+
             copyList.splice(source.index, 1);
-            copyList.splice(destination?.index, 0, draggableId);
+            copyList.splice(destination?.index, 0, taskObj);
 
             setActionItemList({
                 ...actionItem,
@@ -92,9 +94,10 @@ function App() {
             // different board movement
             const copyFromList = [...actionItem[source.droppableId]];
             const copyToList = [...actionItem[destination.droppableId]];
+            const taskObj = copyFromList[source.index];
 
             copyFromList.splice(source.index, 1);
-            copyToList.splice(destination?.index, 0, draggableId);
+            copyToList.splice(destination?.index, 0, taskObj);
             setActionItemList({
                 ...actionItem,
                 [source.droppableId]: copyFromList,
