@@ -12,4 +12,6 @@ export const Button = styled.div`
         cursor: pointer;
         scale: 1.2;
     }
+    /* color: ${(props) =>
+        props.theme.fontColor === "whitesmoke" ? "orange" : "black"}; */
 `;

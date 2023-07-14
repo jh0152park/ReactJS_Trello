@@ -17,6 +17,6 @@ export const lightMode: Thema = {
 export const darkMode: Thema = {
     backgroundColor: "#222f3e",
     boardColor: "#576574",
-    cardColor: "white",
+    cardColor: "#8395a7",
     fontColor: "whitesmoke",
 };

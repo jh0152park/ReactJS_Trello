@@ -1,4 +1,4 @@
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "./Global";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -15,7 +15,10 @@ function Thema() {
 
     return (
         <Button onClick={onClick}>
-            <FontAwesomeIcon icon={faMoon} />
+            <FontAwesomeIcon
+                style={{ color: currentThema ? "#2d3436" : "#feca57" }}
+                icon={currentThema ? faMoon : faSun}
+            />
         </Button>
     );
 }
