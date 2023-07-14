@@ -34,8 +34,11 @@ const Container = styled.div`
 const Title = styled.h2`
     text-align: center;
     font-weight: bold;
-    margin-bottom: 15px;
+
     font-size: 18px;
+    background-color: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid ${(props) => props.theme.fontColor};
 `;
 
 const Area = styled.div<IAreaProps>`
@@ -61,32 +64,32 @@ function Board({ boardId, actionItems }: IBoardProps) {
     const { register, setValue, handleSubmit } = useForm<IForm>();
     const setActionItem = useSetRecoilState(actionItemState);
 
-    function onValid({ todo }: IForm) {
-        const newItem = {
-            id: Date.now(),
-            text: todo,
-        };
+    // function onValid({ todo }: IForm) {
+    //     const newItem = {
+    //         id: Date.now(),
+    //         text: todo,
+    //     };
 
-        setActionItem((prev) => {
-            return {
-                ...prev,
-                [boardId]: [...prev[boardId], newItem],
-            };
-        });
-        setValue("todo", "");
-    }
+    //     setActionItem((prev) => {
+    //         return {
+    //             ...prev,
+    //             [boardId]: [...prev[boardId], newItem],
+    //         };
+    //     });
+    //     setValue("todo", "");
+    // }
 
     return (
         <Container>
             <Title>{boardId}</Title>
 
-            <Form onSubmit={handleSubmit(onValid)}>
+            {/* <Form onSubmit={handleSubmit(onValid)}>
                 <input
                     {...register("todo", { required: true })}
                     type="text"
                     placeholder={`Add task to on ${boardId}`}
                 ></input>
-            </Form>
+            </Form> */}
 
             <Droppable droppableId={boardId}>
                 {(magic, snapshot) => (
