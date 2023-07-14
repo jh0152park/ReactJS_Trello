@@ -5,6 +5,8 @@ import { styled } from "styled-components";
 import { useForm } from "react-hook-form";
 import { ITodo, actionItemState } from "../atoms";
 import { useSetRecoilState } from "recoil";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface IBoardProps {
     actionItems: ITodo[];
@@ -31,14 +33,14 @@ const Container = styled.div`
     flex-direction: column;
 `;
 
-const Title = styled.h2`
+const Title = styled.div`
     text-align: center;
     font-weight: bold;
-
     font-size: 18px;
     background-color: none;
     padding-bottom: 10px;
     border-bottom: 1px solid ${(props) => props.theme.fontColor};
+    position: relative;
 `;
 
 const Area = styled.div<IAreaProps>`
@@ -57,6 +59,48 @@ const Form = styled.form`
     width: 100%;
     input {
         width: 98%;
+    }
+`;
+
+const Add = styled.div`
+    width: 15px;
+    height: 15px;
+    color: #3ae374;
+    background-color: #3ae374;
+    position: absolute;
+    right: 30px;
+    top: 2px;
+    border-radius: 50%;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+        color: ${(props) => props.theme.fontColor};
+        transition: color 0.2s ease-in-out;
+    }
+`;
+
+const Close = styled.div`
+    width: 15px;
+    height: 15px;
+    color: #ff3838;
+    background-color: #ff3838;
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    border-radius: 50%;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+        color: ${(props) => props.theme.fontColor};
+        transition: color 0.2s ease-in-out;
     }
 `;
 
@@ -79,9 +123,25 @@ function Board({ boardId, actionItems }: IBoardProps) {
     //     setValue("todo", "");
     // }
 
+    function onAddButtonClick(id: string) {
+        console.log(`add button clicked at ${id}`);
+    }
+
+    function onCloseButtonClick(id: string) {
+        console.log(`close button clicked at ${id}`);
+    }
+
     return (
         <Container>
-            <Title>{boardId}</Title>
+            <Title>
+                {boardId}
+                <Add onClick={() => onAddButtonClick(boardId)}>
+                    <FontAwesomeIcon icon={faPlus} />
+                </Add>
+                <Close onClick={() => onCloseButtonClick(boardId)}>
+                    <FontAwesomeIcon icon={faXmark} />
+                </Close>
+            </Title>
 
             {/* <Form onSubmit={handleSubmit(onValid)}>
                 <input
