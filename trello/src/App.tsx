@@ -4,6 +4,8 @@ import { useRecoilState } from "recoil";
 import { actionItemState } from "./atoms";
 
 import Board from "./components/Board";
+import Thema from "./components/Thema";
+import Create from "./components/Create";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -74,11 +76,11 @@ const Boards = styled.div`
 
 const Options = styled.div`
     display: flex;
-    justify-content: left;
+    justify-content: space-evenly;
     align-items: center;
-    width: 150px;
-    height: 150px;
-    background-color: red;
+    width: 100px;
+    height: 100px;
+    background-color: none;
     position: absolute;
     left: 10px;
     bottom: 10px;
@@ -134,7 +136,10 @@ function App() {
                         ))}
                     </Boards>
 
-                    <Options></Options>
+                    <Options>
+                        <Thema></Thema>
+                        <Create></Create>
+                    </Options>
                 </Container>
             </DragDropContext>
         </>
