@@ -1,13 +1,13 @@
 import "styled-components";
 
-interface DefaultTheme {
+interface Thema {
     backgroundColor?: string;
     boardColor?: string;
     cardColor?: string;
     fontColor?: string;
 }
 
-export const defaultTheme: DefaultTheme = {
+export const defaultTheme: Thema = {
     backgroundColor: "#54a0ff",
     boardColor: "#c8d6e5",
     cardColor: "white",
