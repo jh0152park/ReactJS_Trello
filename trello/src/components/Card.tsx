@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { styled } from "styled-components";
+import { actionItemState } from "../atoms";
+import { useRecoilState } from "recoil";
 
 const Card = styled.div<{ isDragging: boolean }>`
     padding: 10px 10px;
@@ -37,13 +39,11 @@ const Close = styled.div`
 `;
 
 interface IDragabbleCardProps {
-    todo: string | number;
+    todo: string;
     todoId: number;
     index: number;
     boardId: string;
 }
-
-function onCloseButtonClick(id: string) {}
 
 export function DraggableCard({
     todo,
@@ -51,6 +51,15 @@ export function DraggableCard({
     todoId,
     boardId,
 }: IDragabbleCardProps) {
+    const [actoonItems, setActionItems] = useRecoilState(actionItemState);
+
+    function onCloseButtonClick(boardId: string, item: string) {
+        const copy = { ...actoonItems };
+        const list = actoonItems[boardId].filter((at) => at.text !== item);
+        copy[boardId] = list;
+        setActionItems(copy);
+    }
+
     return (
         <Draggable draggableId={todoId + ""} index={index} key={todo}>
             {(magic, snapshot) => (
@@ -61,7 +70,7 @@ export function DraggableCard({
                     {...magic.dragHandleProps}
                 >
                     {todo}
-                    <Close>
+                    <Close onClick={() => onCloseButtonClick(boardId, todo)}>
                         <FontAwesomeIcon icon={faXmark} />
                     </Close>
                 </Card>
