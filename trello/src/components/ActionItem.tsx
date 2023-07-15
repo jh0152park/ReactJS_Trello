@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { AddButtonState, BoardState, actionItemState } from "../atoms";
-import { transform } from "typescript";
 import { useEffect, useRef } from "react";
 
 interface IForm {
