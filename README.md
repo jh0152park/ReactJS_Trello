@@ -14,6 +14,9 @@ Kind of App for helpful to organize your action items like `to-do` list or `shop
 
 # Working Video
 
+https://github.com/jh0152park/ReactJS_Trello/assets/118165975/21e19879-9542-488d-b1d5-1bce6f93e0a6
+
+
 # Used Features
 
 -   Helmet
