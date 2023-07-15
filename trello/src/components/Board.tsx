@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { DraggableCard } from "./Card";
 import { styled } from "styled-components";
 import { useForm } from "react-hook-form";
-import { ITodo, actionItemState } from "../atoms";
-import { useSetRecoilState } from "recoil";
+import { AddButtonState, BoardState, ITodo, actionItemState } from "../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -104,9 +104,11 @@ const Close = styled.div`
     }
 `;
 
+// const inputFocus = useRef(null);
+
 function Board({ boardId, actionItems }: IBoardProps) {
-    const { register, setValue, handleSubmit } = useForm<IForm>();
-    const setActionItem = useSetRecoilState(actionItemState);
+    const [actionItemBoard, setActionItemBoard] = useRecoilState(BoardState);
+    const setAddButton = useSetRecoilState(AddButtonState);
 
     // function onValid({ todo }: IForm) {
     //     const newItem = {
@@ -125,10 +127,13 @@ function Board({ boardId, actionItems }: IBoardProps) {
 
     function onAddButtonClick(id: string) {
         console.log(`add button clicked at ${id}`);
+        setActionItemBoard(id);
+        setAddButton(true);
     }
 
     function onCloseButtonClick(id: string) {
         console.log(`close button clicked at ${id}`);
+        setActionItemBoard(id);
     }
 
     return (

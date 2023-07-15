@@ -1,19 +1,78 @@
+import { useForm } from "react-hook-form";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { AddButtonState, BoardState, actionItemState } from "../atoms";
+import { transform } from "typescript";
+import { useEffect, useRef } from "react";
+
+interface IForm {
+    item?: string;
+}
 
 const AddItem = styled.form`
-    position: absolute;
-    top: 0px;
-    left: 0px;
     input {
         margin: 10px 10px;
         width: 400px;
+        height: 20px;
+        border-radius: 10px;
+        padding-left: 10px;
+        border: none;
+
+        background-color: ${(props) => props.theme.cardColor};
+        &::placeholder {
+            color: ${(props) => props.theme.fontColor};
+            font-size: 15px;
+        }
     }
 `;
 
 export function AddActionItem() {
+    const setActionItem = useSetRecoilState(actionItemState);
+    const Board = useRecoilValue(BoardState);
+    const [addButton, setAddButton] = useRecoilState(AddButtonState);
+
+    const { register, setValue, handleSubmit } = useForm();
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(clickListener, []);
+
+    function clickListener() {
+        if (addButton) {
+            inputRef.current?.focus();
+        }
+    }
+
+    function onSubmit({ item }: IForm) {
+        console.log(item);
+        console.log(Board);
+
+        const newItem = {
+            id: Date.now(),
+            text: item + "",
+        };
+
+        setActionItem((prev) => {
+            return {
+                ...prev,
+                [Board]: [...prev[Board], newItem],
+            };
+        });
+        setValue("item", "");
+        setAddButton(false);
+    }
+
+    console.log(register("item"));
+
     return (
-        <AddItem>
+        <AddItem onSubmit={handleSubmit(onSubmit)}>
             <input
+                style={{
+                    opacity: addButton ? 1 : 0,
+                    transition: "opacity 0.2s ease-in-out",
+                }}
+                {...register("item", {
+                    required: true,
+                })}
                 type="text"
                 placeholder="please let me know what you gonna do."
             ></input>
