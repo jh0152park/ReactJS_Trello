@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { DraggableCard } from "./Card";
 import { styled } from "styled-components";
-import { useForm } from "react-hook-form";
 import { AddButtonState, BoardState, ITodo, actionItemState } from "../atoms";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
