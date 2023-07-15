@@ -9,9 +9,19 @@ export const ThemaState = atom<boolean>({
     default: true,
 });
 
+export const BoardState = atom<string>({
+    key: "board",
+    default: "",
+});
+
+export const AddButtonState = atom<boolean>({
+    key: "add",
+    default: false,
+});
+
 export interface ITodo {
     id: number;
-    text: string | number;
+    text: string;
 }
 
 interface IActionItemState {
@@ -21,7 +31,7 @@ interface IActionItemState {
 export const actionItemState = atom<IActionItemState>({
     key: "todo",
     default: {
-        Todo: [{ id: 1, text: 1 }],
+        Todo: [{ id: 1, text: "1" }],
         Doing: [],
         Done: [],
     },
