@@ -13,7 +13,6 @@ const Card = styled.div<{ isDragging: boolean }>`
     box-shadow: ${(props) =>
         props.isDragging ? "0px 2px 10px rgba(0,0,0,0.5)" : "none"};
     word-break: break-all;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,12 +23,8 @@ const Close = styled.div`
     height: 10px;
     color: #ff3838;
     background-color: #ff3838;
-    /* position: absolute;
-    right: 10px;
-    top: 10px; */
     border-radius: 50%;
-
-    font-size: 13px;
+    font-size: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,9 +40,17 @@ interface IDragabbleCardProps {
     todo: string | number;
     todoId: number;
     index: number;
+    boardId: string;
 }
 
-export function DraggableCard({ todo, index, todoId }: IDragabbleCardProps) {
+function onCloseButtonClick(id: string) {}
+
+export function DraggableCard({
+    todo,
+    index,
+    todoId,
+    boardId,
+}: IDragabbleCardProps) {
     return (
         <Draggable draggableId={todoId + ""} index={index} key={todo}>
             {(magic, snapshot) => (
