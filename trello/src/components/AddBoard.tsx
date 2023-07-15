@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 const AddItem = styled.form`
     input {
         margin: 10px 10px;
-        width: 400px;
+        width: 250px;
         height: 20px;
         border-radius: 10px;
         padding-left: 10px;
@@ -34,7 +34,7 @@ function AddBoard() {
                 //     required: true,
                 // })}
                 type="text"
-                placeholder="please let me know the name of new action item board."
+                placeholder="please enter new board name."
             ></input>
         </AddItem>
     );

@@ -1,6 +1,8 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { CreateBoardButtonState } from "../atoms";
 
 const Button = styled.div`
     width: 40px;
@@ -17,8 +19,11 @@ const Button = styled.div`
 `;
 
 function Create() {
+    const createButton = useSetRecoilState(CreateBoardButtonState);
+
     function onClick() {
-        console.log("clicked create button");
+        console.log("clicked create new board button");
+        createButton(true);
     }
 
     return (

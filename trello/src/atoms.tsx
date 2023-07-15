@@ -19,6 +19,11 @@ export const AddButtonState = atom<boolean>({
     default: false,
 });
 
+export const CreateBoardButtonState = atom<boolean>({
+    key: "create",
+    default: false,
+});
+
 export interface ITodo {
     id: number;
     text: string;
