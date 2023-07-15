@@ -102,7 +102,7 @@ const Close = styled.div`
 
 function Board({ boardId, actionItems }: IBoardProps) {
     const [entireBorad, setEntireBoard] = useRecoilState(actionItemState);
-    const [actionItemBoard, setActionItemBoard] = useRecoilState(BoardState);
+    const setActionItemBoard = useSetRecoilState(BoardState);
     const setAddButton = useSetRecoilState(AddButtonState);
 
     function onAddButtonClick(id: string) {
