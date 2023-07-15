@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
-import { CreateBoardButtonState } from "../atoms";
+import { CreateBoardButtonState, actionItemState } from "../atoms";
 import { useRecoilState } from "recoil";
 
 const AddItem = styled.form`
@@ -26,14 +26,18 @@ const AddItem = styled.form`
 `;
 
 function AddBoard() {
-    const { register, setValue, handleSubmit } = useForm();
+    const { register, setValue, handleSubmit, watch } = useForm();
     const [createButton, setCreateButton] = useRecoilState(
         CreateBoardButtonState
     );
+    const [actionItmes, setActionItems] = useRecoilState(actionItemState);
 
     function onSubmit() {
+        const newBoardName = watch("create");
+
         setValue("create", "");
         setCreateButton(false);
+        setActionItems({ ...actionItmes, [newBoardName]: [] });
     }
 
     return (

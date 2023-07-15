@@ -60,9 +60,7 @@ export function AddActionItem() {
                     opacity: addButton ? 1 : 0,
                     transition: "opacity 0.2s ease-in-out",
                 }}
-                {...register("item", {
-                    required: true,
-                })}
+                {...register("item", { required: true })}
                 type="text"
                 placeholder="please let me know what you gonna do."
             ></input>
