@@ -8,6 +8,7 @@ import Thema from "./components/ThemaButton";
 import Create from "./components/CreateButton";
 import { darkMode, lightMode } from "./theme";
 import AddActionItem from "./components/ActionItem";
+import AddBoard from "./components/AddBoard";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -150,6 +151,8 @@ function App() {
                         </Options>
                     </Container>
                 </DragDropContext>
+
+                <AddBoard></AddBoard>
             </ThemeProvider>
         </>
     );
