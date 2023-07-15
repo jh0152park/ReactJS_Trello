@@ -7,6 +7,7 @@ import Board from "./components/Board";
 import Thema from "./components/ThemaButton";
 import Create from "./components/CreateButton";
 import { darkMode, lightMode } from "./theme";
+import AddActionItem from "./components/ActionItem";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -128,6 +129,9 @@ function App() {
         <>
             <ThemeProvider theme={themaMode}>
                 <GlobalStyle></GlobalStyle>
+
+                <AddActionItem></AddActionItem>
+
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Container>
                         <Boards>
