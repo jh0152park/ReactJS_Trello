@@ -18,10 +18,6 @@ interface IAreaProps {
     isDraggingFromThis: boolean;
 }
 
-interface IForm {
-    todo: string;
-}
-
 const Container = styled.div`
     background-color: ${(props) => props.theme.boardColor};
     padding-top: 10px;
@@ -104,26 +100,10 @@ const Close = styled.div`
     }
 `;
 
-// const inputFocus = useRef(null);
-
 function Board({ boardId, actionItems }: IBoardProps) {
+    const [entireBorad, setEntireBoard] = useRecoilState(actionItemState);
     const [actionItemBoard, setActionItemBoard] = useRecoilState(BoardState);
     const setAddButton = useSetRecoilState(AddButtonState);
-
-    // function onValid({ todo }: IForm) {
-    //     const newItem = {
-    //         id: Date.now(),
-    //         text: todo,
-    //     };
-
-    //     setActionItem((prev) => {
-    //         return {
-    //             ...prev,
-    //             [boardId]: [...prev[boardId], newItem],
-    //         };
-    //     });
-    //     setValue("todo", "");
-    // }
 
     function onAddButtonClick(id: string) {
         console.log(`add button clicked at ${id}`);
@@ -134,6 +114,10 @@ function Board({ boardId, actionItems }: IBoardProps) {
     function onCloseButtonClick(id: string) {
         console.log(`close button clicked at ${id}`);
         setActionItemBoard(id);
+
+        const newBoards = { ...entireBorad };
+        delete newBoards[id];
+        setEntireBoard(newBoards);
     }
 
     return (
@@ -147,14 +131,6 @@ function Board({ boardId, actionItems }: IBoardProps) {
                     <FontAwesomeIcon icon={faXmark} />
                 </Close>
             </Title>
-
-            {/* <Form onSubmit={handleSubmit(onValid)}>
-                <input
-                    {...register("todo", { required: true })}
-                    type="text"
-                    placeholder={`Add task to on ${boardId}`}
-                ></input>
-            </Form> */}
 
             <Droppable droppableId={boardId}>
                 {(magic, snapshot) => (
