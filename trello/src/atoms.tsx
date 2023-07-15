@@ -35,9 +35,5 @@ interface IActionItemState {
 
 export const actionItemState = atom<IActionItemState>({
     key: "todo",
-    default: {
-        Todo: [{ id: 1, text: "11111111111111111111111111111111111111111" }],
-        Doing: [],
-        Done: [],
-    },
+    default: {},
 });
