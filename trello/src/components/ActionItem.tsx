@@ -16,6 +16,7 @@ const AddItem = styled.form`
         border-radius: 10px;
         padding-left: 10px;
         border: none;
+        padding-bottom: 3px;
 
         background-color: ${(props) => props.theme.cardColor};
         &::placeholder {
