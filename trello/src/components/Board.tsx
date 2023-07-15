@@ -172,6 +172,7 @@ function Board({ boardId, actionItems }: IBoardProps) {
                                 index={index}
                                 todo={todo.text}
                                 todoId={todo.id}
+                                boardId={boardId}
                             ></DraggableCard>
                         ))}
                         {magic.placeholder}
