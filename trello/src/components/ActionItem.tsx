@@ -29,17 +29,7 @@ export function AddActionItem() {
     const setActionItem = useSetRecoilState(actionItemState);
     const Board = useRecoilValue(BoardState);
     const [addButton, setAddButton] = useRecoilState(AddButtonState);
-
     const { register, setValue, handleSubmit } = useForm();
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    useEffect(clickListener, []);
-
-    function clickListener() {
-        if (addButton) {
-            inputRef.current?.focus();
-        }
-    }
 
     function onSubmit({ item }: IForm) {
         console.log(item);
